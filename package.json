@@ -1,0 +1,24 @@
+{
+  "name": "artcar",
+  "version": "1.0.0",
+  "description": "Site da concessionaria Art Car",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-load": "^1.1.16",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "node": "^11.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm prune"  
+  },
+  "author": "Henrique A",
+  "license": "ISC"
+}

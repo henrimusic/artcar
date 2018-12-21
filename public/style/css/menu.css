@@ -1,0 +1,30 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #00327D;
+}
+
+.album{
+  width: 100%;
+  max-width: 100%;
+  padding: 15px;
+  margin: auto;
+  text-align: center;
+}
+
+a{
+  background-color: white;
+}
+
+.col-md-5{
+  margin: auto;
+}

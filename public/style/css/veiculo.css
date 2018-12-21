@@ -1,0 +1,67 @@
+body{
+  height: 100%;
+  background-color: #00327D;
+}
+
+body label{
+  width: 10%;
+}
+
+.list-group{
+  max-width: 600px;
+  margin:auto;
+}
+
+.list-group button{
+  margin-top: 1%;
+}
+
+.btn-secondary{
+  height: calc(2.25rem + 2px);
+}
+
+.form-control{
+  width: 50%;
+  margin: auto;
+}
+
+.form-row select{
+  width: 20%;
+  margin: auto;
+}
+
+.form-row input{
+  width: 20%;
+  margin: auto;
+}
+
+.custom-file-label{
+  margin: auto;
+  width: 50%;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+

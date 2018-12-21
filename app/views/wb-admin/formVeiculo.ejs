@@ -1,0 +1,218 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+  <link rel="icon" href="/style/img/artcar-logo.ico">
+
+  <title>Cadastro de Veículos</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/style/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/style/css/veiculoForm.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  
+  <script src="/style/js/bootstrap.min.js"></script>
+
+  <script src="/style/js/jquery.number.min.js"></script>
+
+  <script type="text/javascript">
+    <%var veiculo = lista[0];%>
+    <%if (veiculo == undefined) {} else {
+      var idVeiculo = veiculo.idVeiculo; var idImagem = veiculo.idImagem; var tipoVeiculo = veiculo.tipoVeiculo; 
+      var path = veiculo.path; var marca = veiculo.marca; var modelo = veiculo.modelo; var anoModelo = veiculo.anoModelo;
+      var anoFabricacao = veiculo.anoFabricacao; var versao = veiculo.versao; var cor = veiculo.cor;
+      var combustivel = veiculo.combustivel; var cambio = veiculo.cambio; var portas = veiculo.portas;
+      var quilometragem = veiculo.quilometragem; var renavan = veiculo.renavan; var descricao = veiculo.descricao;
+    }%>
+    var veiculoHtml = <%=idVeiculo%>;
+  </script>
+</head>
+
+<body>
+  <div class="text-center">
+    <div class="container">
+
+      <form action="/wb-admin/form" method="post" enctype="multipart/form-data">
+        <h1 class="jumbotron-heading">Cadastro de Veículo</h1>
+        <div class="form-row">
+          <%if(idVeiculo){%>
+          <div>
+            <input type="hidden" name="idVeiculo" value="<%=idVeiculo%>">
+            <input type="hidden" name="idImagem" value="<%=idImagem%>">
+          </div>
+          <%}%>
+
+          <div class="form-group col-md-4">
+            <label for="options">Tipo de Veículo</label>
+            <select class="form-control" name="tipoVeiculo" id="tipoVeiculo">
+              <option>Carro</option>
+              <option>Moto</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="marcas">Marca</label>
+            <select class="form-control" name="marca" id="marcas">
+              <option>Chery</option>
+              <option>Chevrolet</option>
+              <option>Citroen</option>
+              <option>Dodge</option>
+              <option>Fiat</option>
+              <option>Ford</option>
+              <option>Honda</option>
+              <option>Hyundai</option>
+              <option>Jac</option>
+              <option>Jeep</option>
+              <option>Kia</option>
+              <option>Mercedes-Benz</option>
+              <option>Mitsubishi</option>
+              <option>Nissan</option>
+              <option>Peugeot</option>
+              <option>Renault</option>
+              <option>Suzuki</option>
+              <option>Toyota</option>
+              <option>Troller</option>
+              <option>Wolksvagem</option>
+              <option>Volvo</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Modelo</label>
+            <input type="text" value="<%=modelo%>" class="form-control" name="modelo" placeholder="Nome do veículo" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-2"><label>Ano Modelo</label>
+            <input type="text" value="<%=anoModelo%>" class="form-control" name="anoModelo" placeholder="2018-2019" required>
+          </div>
+
+          <div class="form-group col-md-2"><label>Ano Fabricação</label>
+            <input type="text" value="<%=anoFabricacao%>" class="form-control" name="anoFabricacao" placeholder="2017-2018" required>
+          </div>
+
+          <div class="form-group col-md-8"><label>Versão do Veículo</label>
+            <input type="text" value="<%=versao%>" name="versao" class="form-control" placeholder="1.6 TRENDLINE CE 8V FLEX 2P MANUAL" required>
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Combustível</label>
+            <select class="form-control" id="combustivel" name="combustivel">
+              <option>Alcool</option>
+              <option>Gasolina</option>
+              <option>Flex</option>
+              <option>Diesel</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Câmbio</label>
+            <select class="form-control" id="cambio" name="cambio">
+              <option>Manual</option>
+              <option>Automátio</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label>Cor</label>
+            <input type="text" value="<%=cor%>" name="cor" class="form-control" required>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label>Porta</label>
+            <select class="form-control" name="portas" id="portas">
+              <option>Nenhuma</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4"><label>Quilometragem</label>
+           <input class="form-control" id="quilometragem" value="<%=quilometragem%>" type="text" name="quilometragem" placeholder="200000 km" required>
+         </div>
+         <div class="form-group col-md-4"><label>Renavan</label>
+           <input class="form-control" id="renavan" value="<%=renavan%>" type="number" name="renavan" required>
+         </div>
+
+         <div class="form-group col-md-4"><label>Imagem</label>
+           <%if(idVeiculo){%>
+           <div class="form-check">
+            <input class="btn btn-primary" type="button" value="Nova Imagem" id="btn-novaImagem" onclick="novaImagem()">
+            <div id="novaImagem" style="display: none;">
+              <label class="custom-file-label" for="imagem" id="imagemLabel2">Selecione a imagem</label>
+              <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()">
+            </div>
+          </div>
+          <%}%>
+
+          <div class="form-check" id="form-check">
+            <label class="custom-file-label" for="imagem" id="imagemLabel">Selecione a imagem</label>
+            <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group" style="margin-top: 2%;">
+        <label>Descrição do veículo</label>
+        <textarea class="form-control"  name="descricao" id="descricao" rows="4" required><%=descricao%></textarea>
+      </div>
+
+      <input class="btn btn-primary" type="submit" value="Salvar" style="margin-top: 2%;">
+
+      <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+      <a href="/wb-admin/lista">Ir para listagem</a> || <a href="/wb-admin">Sair do Sistema</a>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#tipoVeiculo").change(function() {
+      var tipoVeiculo = $(this).val(), count = 0;
+      if (tipoVeiculo != 'Moto') {
+        $('#portas').prop( "disabled", false );
+      }else{
+        $('#portas').prop( "disabled", true );
+      }
+    });
+  });
+
+  $('#quilometragem').number(true);
+
+  document.getElementById("tipoVeiculo").value = '<%=tipoVeiculo%>';
+  document.getElementById("marcas").value = '<%=marca%>';
+  document.getElementById("combustivel").value = '<%=combustivel%>';
+  document.getElementById("cambio").value = '<%=cambio%>';
+  document.getElementById("portas").value = '<%=portas%>';
+  document.getElementById("imagemLabel").innerHTML = '<%=path%>';
+
+  if (veiculoHtml != null){document.getElementById("form-check").style.display = 'none';}
+
+  function rename() {
+    var x = document.getElementById("imagem");
+    document.getElementById("imagemLabel").innerHTML = x.files[0].name;
+    document.getElementById("imagemLabel2").innerHTML = x.files[0].name;           
+  }
+
+  function novaImagem() {
+    document.getElementById("btn-novaImagem").style.display = 'none';
+    document.getElementById("novaImagem").style.display = 'block';
+  }
+
+
+</script>
+</body>
+</html>

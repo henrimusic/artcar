@@ -1,0 +1,109 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="/style/img/artcar-logo.ico">
+
+	<title>Lista de Veículos</title>
+	<!-- Custom styles for this template -->
+	<link href="/style/css/veiculo.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="/style/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+	
+	<div class="container" style="text-align: center;margin-top: 5%;">
+		<h1 class="jumbotron-heading">Lista de Veiculos</h1>
+		<p class="lead text-muted">Selecione uma marca para listar os veículos</p>
+		<select class="form-control" name="marca" id="marcas" style="width: 40%;margin: auto;">
+			<option>Mostrar todos</option>
+			<option>Chery</option>
+			<option>Chevrolet</option>
+			<option>Citroen</option>
+			<option>Dodge</option>
+			<option>Fiat</option>
+			<option>Ford</option>
+			<option>Honda</option>
+			<option>Hyundai</option>
+			<option>Jac</option>
+			<option>Jeep</option>
+			<option>Kia</option>
+			<option>Mercedes-Benz</option>
+			<option>Mitsubishi</option>
+			<option>Nissan</option>
+			<option>Peugeot</option>
+			<option>Renault</option>
+			<option>Suzuki</option>
+			<option>Toyota</option>
+			<option>Troller</option>
+			<option>Wolksvagem</option>
+			<option>Volvo</option>
+		</select>
+	</div>
+	<div class="album py-5">
+		<div class="container">
+			<div class="row">
+
+				<%for (var i=0; i<lista.length;i++) {%>
+				<div class="col-md-4" id="<%=lista[i].marca%>">
+					<div class="card mb-4 shadow-sm">
+						<% var str = lista[i].path%>
+						<% var newStr = str.replace('public', '')%>
+						<img class="card-img-top" src="<%=newStr%>" alt="Card image cap" style="max-height: 195px">
+						<div class="card-body">
+							<p class="card-text"><%=lista[i].tipoVeiculo%> modelo <%=lista[i].modelo%></p>
+							<p class="card-text"><%=lista[i].versao%></p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" id="<%=lista[i].idVeiculo%>" onclick="btnEditar(this.id);" class="btn btn-sm btn-outline-secondary">Editar</button>
+									<button type="button" id="<%=lista[i].idVeiculo%>" onclick="btnExcluir(this.id);" class="btn btn-sm btn-outline-secondary">Excluir</button>
+								</div>
+								<small class="text-muted"><%=lista[i].anoModelo%></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%}%>
+
+			</div>
+		</div>
+	</div>
+	<div class="text-center"><div class="form-group"><p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+	</div>
+	<div class="form-group"><a href="/wb-admin/form">Ir para cadastro</a> || <a href="/wb-admin">Sair do Sistema</a>
+	</div>
+</div>
+
+<script src="/style/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("select").change(function() {
+			var filter = $(this).val(), count = 0;
+			if (filter != 'Mostrar todos') {
+				$('.col-md-4').hide();
+				$('#'+filter).show();
+			}
+
+			if (filter == 'Mostrar todos') {
+				$('.col-md-4').show();
+			}
+		});
+	});
+
+	function btnEditar(id) {
+		window.location = '/wb-admin/form/'+id;
+	}
+
+	function btnExcluir(id) {
+		window.location = '/wb-admin/excluir/'+id;
+	}
+</script>
+</body>
+</html>
