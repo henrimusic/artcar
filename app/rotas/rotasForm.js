@@ -65,9 +65,9 @@ module.exports = (app) => {
 			veiculoDAO.salva(veiculo, function(erro, resultado){console.log('AQUI O ERRO MANO: ' + erro);});
 			veiculoDAO.salvaImagem(imagem, function(erro, resultado){
 				console.log('AQUI O ERRO MANO: ' + erro);
+				connection.end();
 				res.redirect('/wb-admin/lista');
 			});
-			connection.end();
 		}
 	});
 
@@ -77,8 +77,8 @@ module.exports = (app) => {
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		veiculoDAO.lista(function(erro, resultado){
 			console.log('AQUI O ERRO MANO: ' + erro);
-			res.render('wb-admin/listaVeiculo', {lista:resultado});
 			connection.end();
+			res.render('wb-admin/listaVeiculo', {lista:resultado});
 		});
 	});
 
@@ -96,6 +96,7 @@ module.exports = (app) => {
 		});
 		veiculoDAO.exclui(req.params.id, function(erro, resultado) {
 			console.log('AQUI O ERRO MANO: ' + erro);
+			connection.end();
 			res.redirect('/wb-admin/lista');
 		});
 	});
@@ -105,6 +106,7 @@ module.exports = (app) => {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		veiculoDAO.listaId(req.params.id, function(erro, resultado) {
+			connection.end();
 			res.render('wb-admin/formVeiculo', {lista:resultado});
 		});
 	});
