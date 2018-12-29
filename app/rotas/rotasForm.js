@@ -87,6 +87,7 @@ module.exports = (app) => {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		veiculoDAO.excluiIamgem(req.params.id, function(erro, resultado) {
+			console.log('AQUI O ERRO MANO: ' + erro);
 			for (var i = resultado.length - 1; i >= 0; i--) {
 				fs.unlink(resultado[i].path, (erroFs) => {
 					if (erroFs) throw erroFs;
@@ -94,6 +95,7 @@ module.exports = (app) => {
 			}
 		});
 		veiculoDAO.exclui(req.params.id, function(erro, resultado) {
+			console.log('AQUI O ERRO MANO: ' + erro);
 			res.redirect('/wb-admin/lista');
 		});
 	});
