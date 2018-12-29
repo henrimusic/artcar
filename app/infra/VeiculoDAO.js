@@ -11,15 +11,15 @@ VeiculoDAO.prototype.salvaImagem = function(imagem, callback){
 }
 
 VeiculoDAO.prototype.lista = function(callback){
-	this._connection.query('select * from artcar.veiculo join artcar.imagem on artcar.veiculo.idVeiculo=artcar.imagem.idVeiculo', callback);
+	this._connection.query('select * from veiculo join imagem on veiculo.idVeiculo=imagem.idVeiculo', callback);
 }
 
 VeiculoDAO.prototype.listaId = function(id, callback){
-	this._connection.query('select * from artcar.veiculo join artcar.imagem on artcar.veiculo.idVeiculo=artcar.imagem.idVeiculo where artcar.veiculo.idVeiculo =' + id , callback);
+	this._connection.query('select * from veiculo join imagem on veiculo.idVeiculo=imagem.idVeiculo where veiculo.idVeiculo =' + id , callback);
 }
 
 VeiculoDAO.prototype.listaImagemId = function(id, callback){
-	this._connection.query('select artcar.imagem.path from artcar.imagem where artcar.imagem.idImagem =' + id , callback);
+	this._connection.query('select imagem.path from imagem where imagem.idImagem =' + id , callback);
 }
 
 VeiculoDAO.prototype.atualiza = function(id ,veiculo, callback) {
