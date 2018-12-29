@@ -62,8 +62,9 @@ module.exports = (app) => {
 				path: req.file.path,
 				idVeiculo: veiculo.idVeiculo
 			});	
-			veiculoDAO.salva(veiculo, function(erro, resultado){});
+			veiculoDAO.salva(veiculo, function(erro, resultado){console.log('AQUI O ERRO MANO: ' + erro);});
 			veiculoDAO.salvaImagem(imagem, function(erro, resultado){
+				console.log('AQUI O ERRO MANO: ' + erro);
 				res.redirect('/wb-admin/lista');
 			});
 			connection.end();
@@ -75,6 +76,7 @@ module.exports = (app) => {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		veiculoDAO.lista(function(erro, resultado){
+			console.log('AQUI O ERRO MANO: ' + erro);
 			res.render('wb-admin/listaVeiculo', {lista:resultado});
 			connection.end();
 		});
