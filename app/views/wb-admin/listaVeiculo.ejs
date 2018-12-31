@@ -54,7 +54,7 @@
 				<%for (var i=0; i<lista.length;i++) {%>
 				<div class="col-md-4" id="<%=lista[i].marca%>">
 					<div class="card mb-4 shadow-sm">
-						<img class="card-img-top" src="data:image/png;base64,<%=btoa(lista[i].base64)%>" alt="Card image cap" style="max-height: 195px">
+						<img class="card-img-top" src="data:image/png;base64," alt="Card image cap" style="max-height: 195px" id="<%=i%>">
 						<div class="card-body">
 							<p class="card-text"><%=lista[i].tipoVeiculo%> modelo <%=lista[i].modelo%></p>
 							<p class="card-text"><%=lista[i].versao%></p>
@@ -68,6 +68,11 @@
 						</div>
 					</div>
 				</div>
+				<script type="text/javascript">
+					var imagem = btoa(<%=lista[i].base64%>);
+					console.log(imagem);
+					document.getElementById("<%=i%>").src = "data:image/png;base64," + imagem;
+				</script>
 				<%}%>
 
 			</div>
