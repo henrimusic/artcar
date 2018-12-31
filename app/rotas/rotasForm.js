@@ -93,6 +93,9 @@ module.exports = (app) => {
 			if (erro) {
 				res.send(erro)
 			}
+			for (var i = 0; i < resultado.length; i++) {
+				resultado[i].base64 = Buffer.from(resultado[i].base64, 'base64');
+			}
 			res.render('wb-admin/listaVeiculo', {lista:resultado});
 		});
 		
