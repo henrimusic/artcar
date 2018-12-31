@@ -8,7 +8,7 @@ VeiculoDAO.prototype.salva = function(veiculo, callback){
 
 
 VeiculoDAO.prototype.lista = function(callback){
-	this._connection.query('select tipoVeiculo, modelo, marca, anoModelo, versao, to_base64(base64) as base64, idImagem, veiculo.idVeiculo from veiculo join imagem on veiculo.idVeiculo = imagem.idVeiculo', callback);
+	this._connection.query('select tipoVeiculo, modelo, marca, anoModelo, versao, base64, idImagem, veiculo.idVeiculo from veiculo join imagem on veiculo.idVeiculo = imagem.idVeiculo', callback);
 }
 
 VeiculoDAO.prototype.listaId = function(id, callback){
