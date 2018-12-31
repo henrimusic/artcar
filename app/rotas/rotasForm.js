@@ -90,6 +90,9 @@ module.exports = (app) => {
 
 		veiculoDAO.lista(function(erro, resultado){
 			connection.end();
+			if (erro) {
+				res.send(erro)
+			}
 			res.render('wb-admin/listaVeiculo', {lista:resultado});
 		});
 		
