@@ -93,10 +93,6 @@ module.exports = (app) => {
 			if (erro) {
 				res.send(erro)
 			}
-			console.log('antes: ' + resultado);
-			var imagem = btoa(resultado.base64);
-			resultado.base64 = imagem;
-			console.log('depois: ' + resultado);
 			res.render('wb-admin/listaVeiculo', {lista:resultado});
 		});
 		

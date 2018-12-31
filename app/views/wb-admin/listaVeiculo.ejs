@@ -15,7 +15,6 @@
 	<link href="/style/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
 </head>
 
 <body>
@@ -55,7 +54,7 @@
 				<%for (var i=0; i<lista.length;i++) {%>
 				<div class="col-md-4" id="<%=lista[i].marca%>">
 					<div class="card mb-4 shadow-sm">
-						<img class="card-img-top" src="data:image/png;base64,<%=lista[i].base64%>" alt="Card image cap" style="max-height: 195px">
+						<img class="card-img-top" src="data:image/png;base64,<%=btoa(lista[i].base64)%>" alt="Card image cap" style="max-height: 195px">
 						<div class="card-body">
 							<p class="card-text"><%=lista[i].tipoVeiculo%> modelo <%=lista[i].modelo%></p>
 							<p class="card-text"><%=lista[i].versao%></p>
