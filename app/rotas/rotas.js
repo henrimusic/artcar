@@ -1,6 +1,6 @@
 module.exports = (app) => {
 	//Site
-	app.get('/', function (req, res) {
+	app.get('/home', function (req, res) {
 		res.send("home");
 	});
 

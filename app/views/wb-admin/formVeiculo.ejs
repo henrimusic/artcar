@@ -153,14 +153,14 @@
             <input class="btn btn-primary" type="button" value="Nova Imagem" id="btn-novaImagem" onclick="novaImagem()">
             <div id="novaImagem" style="display: none;">
               <label class="custom-file-label" for="imagem" id="imagemLabel2">Selecione a imagem</label>
-              <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()">
+              <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()" >
             </div>
           </div>
           <%}%>
 
           <div class="form-check" id="form-check">
             <label class="custom-file-label" for="imagem" id="imagemLabel">Selecione a imagem</label>
-            <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()">
+            <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()" >
           </div>
         </div>
       </div>
@@ -203,16 +203,19 @@
 
   function rename() {
     var x = document.getElementById("imagem");
+
+    if (x.files.length > 3) {
+      alert("Você só pode dar upload de 3 imagens por vez.");
+    }
+    
     document.getElementById("imagemLabel").innerHTML = x.files[0].name;
-    document.getElementById("imagemLabel2").innerHTML = x.files[0].name;           
+    document.getElementById("imagemLabel2").innerHTML = x.files[0].name;
   }
 
   function novaImagem() {
     document.getElementById("btn-novaImagem").style.display = 'none';
     document.getElementById("novaImagem").style.display = 'block';
   }
-
-
 </script>
 </body>
 </html>
