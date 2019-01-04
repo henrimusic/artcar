@@ -46,15 +46,15 @@ module.exports = (app) => {
 					});
 
 					fs.unlink(req.files[i].path, (erroFs) => {
-						if (erroFs) res.send(erroFs);
+						if (erroFs) res.send('err in file system alter: ' + erroFs);
 					});
 				}
 
 				imagemDAO.exclui(veiculo.idVeiculo, function(erro, resultado){
-					if (erro) {res.send(erro)}
+					if (erro) {res.send('err delete file in alter: ' + erro)}
 				});
 				imagemDAO.salva(imagens, function(erro, resultado){
-					if (erro) {res.send(erro)}
+					if (erro) {res.send('erro save file in alter: ' + erro)}
 				});
 			}
 
@@ -80,11 +80,11 @@ module.exports = (app) => {
 				});
 
 				fs.unlink(req.files[i].path, (erroFs) => {
-					if (erroFs) res.send(erroFs);
+					if (erroFs) res.send('err unlink file in save: ' + erroFs);
 				});
 			}
 			veiculoDAO.salva(veiculo, function(erro){
-				if (erro) {res.send(erro)}
+				if (erro) {res.send('erro in save car on save: ' + erro)}
 			});
 			imagemDAO.salva(imagens, function(erro){
 				if (erro) {res.send(erro)}
