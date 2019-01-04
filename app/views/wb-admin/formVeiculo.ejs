@@ -41,7 +41,7 @@
       var path = veiculo.path; var marca = veiculo.marca; var modelo = veiculo.modelo; var anoModelo = veiculo.anoModelo;
       var anoFabricacao = veiculo.anoFabricacao; var versao = veiculo.versao; var cor = veiculo.cor;
       var combustivel = veiculo.combustivel; var cambio = veiculo.cambio; var portas = veiculo.portas;
-      var quilometragem = veiculo.quilometragem; var renavan = veiculo.renavan; var descricao = veiculo.descricao;
+      var quilometragem = veiculo.quilometragem; var descricao = veiculo.descricao;
       var fotos = [];
       for (var i = 0; i < 4; i++) {
        if (veiculo.fotos[i] != undefined) {
@@ -166,9 +166,6 @@
         <div class="form-row">
           <div class="form-group col-md-6"><label>Quilometragem</label>
            <input class="form-control" id="quilometragem" value="<%=quilometragem%>" type="text" name="quilometragem" placeholder="200000 km" required>
-         </div>
-         <div class="form-group col-md-6"><label>Renavan</label>
-           <input class="form-control" id="renavan" value="<%=renavan%>" type="number" name="renavan" required>
          </div>
        </div>
 
