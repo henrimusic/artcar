@@ -20,41 +20,46 @@ module.exports = (app) => {
 
 	// Página de Formulário do Veúclo
 	app.get('/wb-admin/form',  function(req, res){
-		res.render('wb-admin/formVeiculo', {lista: {} });
+		var veiculo = undefined;
+		res.render('wb-admin/formVeiculo', {lista:veiculo});
 	});
 
 	// Gravar no banco
-	app.post('/wb-admin/form', upload.single('imagem'), function(req, res){
-		var imagem = [];
-		var imagemBase64;
+	app.post('/wb-admin/form', upload.any('imagem'), function(req, res){
+		var imagens = [];
+		var imagemBase64 = [];
 		var veiculo = req.body;
 
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		var imagemDAO = new app.infra.ImagemDAO(connection);
 		
-		if (req.body.idVeiculo) {
-			var idVeiculo = req.body.idVeiculo;
-			var idImagem = req.body.idImagem
-
+		if (req.body.idVeiculo) {                  
 			// atualiza um veiculo do banco
-			if (req.file != undefined) {
-				imagemBase64 = Buffer.from(fs.readFileSync(req.file.path), 'base64');
+			if (req.files != undefined) {
+				for (var i = 0; i < req.files.length; i++) {
+					imagemBase64 = Buffer.from(fs.readFileSync(req.files[i].path), 'base64');
 
-				imagem.push({
-					idImagem: idImagem,
-					base64: imagemBase64,
-					idVeiculo: idVeiculo
-				});
-				imagemDAO.atualiza(idImagem, imagem, function(erro, resultado){
-					fs.unlink(req.file.path, (erroFs) => {
+					imagens.push({
+						base64: imagemBase64,
+						idVeiculo: veiculo.idVeiculo
+					});
+
+					fs.unlink(req.files[i].path, (erroFs) => {
 						if (erroFs) res.send(erroFs);
 					});
+				}
+
+				imagemDAO.exclui(veiculo.idVeiculo, function(erro, resultado){
+					if (erro) {res.send(erro)}
+				});
+				imagemDAO.salva(imagens, function(erro, resultado){
+					if (erro) {res.send(erro)}
 				});
 			}
 
+			var idVeiculo = veiculo.idVeiculo;
 			delete veiculo.idVeiculo;
-			delete veiculo.idImagem;
 
 			veiculoDAO.atualiza(idVeiculo, veiculo, function(erro, resultado){
 				connection.end();
@@ -65,19 +70,25 @@ module.exports = (app) => {
 
 			// Cria um novo Veículo
 			veiculo.idVeiculo = Math.floor(Math.random() * (1000 - 0)) + 1;
-			imagemBase64 = Buffer.from(fs.readFileSync(req.file.path), 'base64');
+			
+			for (var i = 0; i < req.files.length; i++) {
+				imagemBase64 = Buffer.from(fs.readFileSync(req.files[i].path), 'base64');
 
-			imagem.push({
-				base64: imagemBase64,
-				idVeiculo: veiculo.idVeiculo
-			});
+				imagens.push({
+					base64: imagemBase64,
+					idVeiculo: veiculo.idVeiculo
+				});
 
-			veiculoDAO.salva(veiculo, function(erro, resultado){});
-			imagemDAO.salva(imagem, function(erro, resultado){
-				connection.end();
-				fs.unlink(req.file.path, (erroFs) => {
+				fs.unlink(req.files[i].path, (erroFs) => {
 					if (erroFs) res.send(erroFs);
-				});	
+				});
+			}
+			veiculoDAO.salva(veiculo, function(erro){
+				if (erro) {res.send(erro)}
+			});
+			imagemDAO.salva(imagens, function(erro){
+				if (erro) {res.send(erro)}
+					connection.end();
 				res.redirect('/wb-admin/lista');
 			});
 		}
@@ -106,6 +117,7 @@ module.exports = (app) => {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 		veiculoDAO.exclui(req.params.id, function(erro, resultado) {
+			connection.end();
 			res.redirect('/wb-admin/lista');
 		});
 	});
@@ -114,8 +126,22 @@ module.exports = (app) => {
 	app.get('/wb-admin/form/:id', function(req, res){
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
+		var imagemDAO = new app.infra.ImagemDAO(connection);
+		
 		veiculoDAO.listaId(req.params.id, function(erro, resultado) {
-			res.render('wb-admin/formVeiculo', {lista:resultado});
+			var veiculo = resultado[0];
+			imagemDAO.listaImagemIdVeiculo(req.params.id, function(erro, resultado){
+				var imagens = [];
+				for (var i = 0; i < resultado.length; i++) {
+					imagens.push({
+						idImagem: resultado[i].idImagem,
+						foto: Buffer.from(resultado[i].base64).toString('base64')
+					});
+				}
+				veiculo.fotos = imagens;
+				res.render('wb-admin/formVeiculo', {lista:veiculo});
+				connection.end();
+			});
 		});
 	});
 }

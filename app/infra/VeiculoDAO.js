@@ -8,11 +8,12 @@ VeiculoDAO.prototype.salva = function(veiculo, callback){
 
 
 VeiculoDAO.prototype.lista = function(callback){
-	this._connection.query('select tipoVeiculo, modelo, marca, anoModelo, versao, base64, idImagem, veiculo.idVeiculo from veiculo join imagem on veiculo.idVeiculo = imagem.idVeiculo', callback);
+	const sql = 'SELECT * FROM veiculo a LEFT JOIN (SELECT MAX(imagem.base64) AS base64, imagem.idImagem, imagem.idVeiculo FROM imagem GROUP BY imagem.idVeiculo) b ON b.idVeiculo = a.idVeiculo;'; 
+	this._connection.query(sql, callback);
 }
 
 VeiculoDAO.prototype.listaId = function(id, callback){
-	this._connection.query('select * from veiculo join imagem on veiculo.idVeiculo = imagem.idVeiculo where veiculo.idVeiculo =' + id , callback);
+	this._connection.query('select * from veiculo where idVeiculo =' + id , callback)
 }
 
 

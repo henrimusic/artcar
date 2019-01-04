@@ -8,7 +8,6 @@ module.exports = (app) => {
 	app.post('/wb-admin', function(req, res){
 		var login = req.body;
 		if (login.login == 'adm@artcar' && login.senha == 'admin') {
-			console.log(login);
 			res.redirect('/wb-admin/menu');	
 		} else {
 			console.log(login);

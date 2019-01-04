@@ -2,36 +2,60 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <link rel="icon" href="/style/img/artcar-logo.ico">
 
   <title>Cadastro de Veículos</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/style/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="/style/css/fileinput.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="/style/css/veiculoForm.css" rel="stylesheet">
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  
-  <script src="/style/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
   <script src="/style/js/jquery.number.min.js"></script>
+  
+  <script src="/style/js/bootstrap.js"></script>
+
+  <script src="/style/js/fileinput.js"></script>
+
+  <script src="/style/js/theme.min.js"></script>
 
   <script type="text/javascript">
-    <%var veiculo = lista[0];%>
-    <%if (veiculo == undefined) {} else {
-      var idVeiculo = veiculo.idVeiculo; var idImagem = veiculo.idImagem; var tipoVeiculo = veiculo.tipoVeiculo; 
+    <%var veiculo = lista;%>
+    <%if (veiculo == undefined) {
+      var fotos = [];
+      for (var i = 0; i < 4; i++) {
+        fotos.push({
+          base64: null
+        });
+      }
+    } else {
+      var idVeiculo = veiculo.idVeiculo; var tipoVeiculo = veiculo.tipoVeiculo; 
       var path = veiculo.path; var marca = veiculo.marca; var modelo = veiculo.modelo; var anoModelo = veiculo.anoModelo;
       var anoFabricacao = veiculo.anoFabricacao; var versao = veiculo.versao; var cor = veiculo.cor;
       var combustivel = veiculo.combustivel; var cambio = veiculo.cambio; var portas = veiculo.portas;
       var quilometragem = veiculo.quilometragem; var renavan = veiculo.renavan; var descricao = veiculo.descricao;
-    }%>
-    var veiculoHtml = <%=idVeiculo%>;
-  </script>
+      var fotos = [];
+      for (var i = 0; i < 4; i++) {
+       if (veiculo.fotos[i] != undefined) {
+        fotos.push({
+          base64: 'data:image/png;base64,'+ veiculo.fotos[i].foto
+        });
+      }else{
+        fotos.push({
+          base64: null
+        });
+      }
+    }
+  }%>
+</script>
 </head>
 
 <body>
@@ -44,7 +68,6 @@
           <%if(idVeiculo){%>
           <div>
             <input type="hidden" name="idVeiculo" value="<%=idVeiculo%>">
-            <input type="hidden" name="idImagem" value="<%=idImagem%>">
           </div>
           <%}%>
 
@@ -140,31 +163,22 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-4"><label>Quilometragem</label>
+          <div class="form-group col-md-6"><label>Quilometragem</label>
            <input class="form-control" id="quilometragem" value="<%=quilometragem%>" type="text" name="quilometragem" placeholder="200000 km" required>
          </div>
-         <div class="form-group col-md-4"><label>Renavan</label>
+         <div class="form-group col-md-6"><label>Renavan</label>
            <input class="form-control" id="renavan" value="<%=renavan%>" type="number" name="renavan" required>
          </div>
+       </div>
 
-         <div class="form-group col-md-4"><label>Imagem</label>
-           <%if(idVeiculo){%>
-           <div class="form-check">
-            <input class="btn btn-primary" type="button" value="Nova Imagem" id="btn-novaImagem" onclick="novaImagem()">
-            <div id="novaImagem" style="display: none;">
-              <label class="custom-file-label" for="imagem" id="imagemLabel2">Selecione a imagem</label>
-              <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()" >
-            </div>
-          </div>
-          <%}%>
-
+       <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Imagem</label>
           <div class="form-check" id="form-check">
-            <label class="custom-file-label" for="imagem" id="imagemLabel">Selecione a imagem</label>
-            <input type="file" class="custom-file-input" id="imagem" name="imagem" accept="image/png, image/jpeg" oninput="rename()" >
+            <input id="input-b5" name="imagem" type="file" accept="image/png, image/jpeg" multiple>
           </div>
         </div>
       </div>
-
 
       <div class="form-group" style="margin-top: 2%;">
         <label>Descrição do veículo</label>
@@ -188,6 +202,22 @@
         $('#portas').prop( "disabled", true );
       }
     });
+    $("#input-b5").fileinput({
+     theme: "gly",
+     maxFileCount: 8,
+     validateInitialCount: true,
+     overwriteInitial: false,
+     showCaption: false,
+     dropZoneEnabled: false,
+     showUpload: false,
+     initialPreview : [
+     '<%=fotos[0].base64%>',
+     '<%=fotos[1].base64%>',
+     '<%=fotos[2].base64%>',
+     '<%=fotos[3].base64%>'],
+     initialPreviewAsData : true,
+     initialPreviewFileType : 'image'
+   });
   });
 
   $('#quilometragem').number(true);
@@ -197,25 +227,6 @@
   document.getElementById("combustivel").value = '<%=combustivel%>';
   document.getElementById("cambio").value = '<%=cambio%>';
   document.getElementById("portas").value = '<%=portas%>';
-  document.getElementById("imagemLabel").innerHTML = '<%=path%>';
-
-  if (veiculoHtml != null){document.getElementById("form-check").style.display = 'none';}
-
-  function rename() {
-    var x = document.getElementById("imagem");
-
-    if (x.files.length > 3) {
-      alert("Você só pode dar upload de 3 imagens por vez.");
-    }
-    
-    document.getElementById("imagemLabel").innerHTML = x.files[0].name;
-    document.getElementById("imagemLabel2").innerHTML = x.files[0].name;
-  }
-
-  function novaImagem() {
-    document.getElementById("btn-novaImagem").style.display = 'none';
-    document.getElementById("novaImagem").style.display = 'block';
-  }
 </script>
 </body>
 </html>
