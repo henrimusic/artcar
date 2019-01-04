@@ -206,7 +206,6 @@
      theme: "gly",
      maxFileCount: 8,
      validateInitialCount: true,
-     overwriteInitial: false,
      showCaption: false,
      dropZoneEnabled: false,
      showUpload: false,
@@ -216,7 +215,14 @@
      '<%=fotos[2].base64%>',
      '<%=fotos[3].base64%>'],
      initialPreviewAsData : true,
-     initialPreviewFileType : 'image'
+     initialPreviewFileType : 'image',
+     previewFileType: "image",
+     browseClass: "btn btn-success",
+     browseLabel: "Pick Image",
+     browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+     removeClass: "btn btn-danger",
+     removeLabel: "Delete",
+     removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> "
    });
   });
 
