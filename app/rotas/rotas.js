@@ -12,7 +12,7 @@ module.exports = (app) => {
 			for (var i = 0; i < resultado.length; i++) {
 				if (resultado[i].base64 == null) {} else {resultado[i].base64 = Buffer.from(resultado[i].base64).toString('base64');}
 			}
-			res.render('/home', {lista:resultado});
+			res.render('home/home', {lista:resultado});
 		});
 	});
 
