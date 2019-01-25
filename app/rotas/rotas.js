@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = (app) => {
 	//chamadas das pages
 	app.get('/',(req, res) => {
