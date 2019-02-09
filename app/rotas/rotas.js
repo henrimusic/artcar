@@ -30,4 +30,21 @@ module.exports = (app) => {
 		});
 		connection.end();
 	});
+
+	app.get('/list-marca', function (req, res) {
+		var connection = app.infra.connectionFactory();
+		var veiculoDAO = new app.infra.VeiculoDAO(connection);
+
+		veiculoDAO.listaMarca(function(erro, resultado){
+			if (erro) {res.send(erro)}
+
+			var marcas = [];
+
+			for (var i = 0; i < resultado.length; i++) {
+				marcas[i] = resultado[i]
+			}
+			res.json(marcas);
+		});
+		connection.end();
+	});
 }
