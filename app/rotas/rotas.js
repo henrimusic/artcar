@@ -59,4 +59,16 @@ module.exports = (app) => {
 		});
 		connection.end();
 	})
+
+	app.get('/veiculo/imagens/:id', function(req, res) {
+		var connection = app.infra.connectionFactory();
+		var imagemDAO = new app.infra.ImagemDAO(connection);
+		imagemDAO.listaId(req.params.id, function(erro, resultado) {
+			if(erro){
+				res.send(erro);
+			}
+			res.status(200).send(JSON.stringify(resultado));
+		});
+		connection.end();
+	})
 }
