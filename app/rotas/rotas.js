@@ -70,7 +70,7 @@ module.exports = (app) => {
 			var imagens = [];
 			for (var i = 0; i < resultado.length; i++) {
 				if (resultado[i].base64 == null) {} else {resultado[i].base64 = Buffer.from(resultado[i].base64).toString('base64');}
-				imagens[i] = imagens[i];
+				imagens[i] = resultado[i];
 			}
 			res.status(200).send(JSON.stringify(imagens));
 		});
