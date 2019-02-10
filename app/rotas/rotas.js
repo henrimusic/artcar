@@ -11,31 +11,41 @@ module.exports = (app) => {
 	app.get('contato',(req, res) => {
 		res.sendFile(path.join(__dirname + '../../public/index.html'));
 	})
+
 	//chamadas rest
 	app.get('/list-home', function (req, res) {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 
-		console.log('a')
 		veiculoDAO.lista(function(erro, resultado){
-			console.log(resultado)
 			if (erro) {
 				res.send(erro)
 			}
-			for (var i = 0; i < resultado.length; i++) {
+			var veiculos = [];
+			for (var i = 0; i < 8; i++) {
 				if (resultado[i].base64 == null) {} else {resultado[i].base64 = Buffer.from(resultado[i].base64).toString('base64');}
+				veiculos[i] = resultado[i];
 			}
-			res.status(200).send(resultado);
+			res.json(veiculos);
 		});
 		connection.end();
 	});
 
-	app.get('/marcas', function (req, res) {
-		res.send("lista de marcas");
-	});
+	app.get('/list-marca', function (req, res) {
+		var connection = app.infra.connectionFactory();
+		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 
-	app.get('/contato', function (req, res) {
-		res.send("contato");
+		veiculoDAO.listaMarca(function(erro, resultado){
+			if (erro) {res.send(erro)}
+
+			var marcas = [];
+
+			for (var i = 0; i < resultado.length; i++) {
+				marcas[i] = resultado[i]
+			}
+			res.json(marcas);
+		});
+		connection.end();
 	});
 
 	app.get('/veiculo/:id', function (req, res) {
@@ -47,5 +57,6 @@ module.exports = (app) => {
 			} 
 			res.status(200).send(resultado);
 		});
-	});
+		connection.end();
+	})
 }

@@ -2,10 +2,10 @@ var mysql = require('mysql');
 
 function createDBConnection() {
 	return mysql.createConnection({
-		host : 'us-mm-dca-71301b8e103e.g5.cleardb.net',
-		user : 'artcaruser',
-		password :'artcaruser',
-		database : 'artcar'
+		host : 'us-cdbr-iron-east-03.cleardb.net',
+		user : 'b8423443422de2',
+		password :'75b9f065',
+		database : 'heroku_ec2292d2a11de58'
 	});
 }
 
