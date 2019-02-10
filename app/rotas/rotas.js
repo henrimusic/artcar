@@ -51,7 +51,7 @@ module.exports = (app) => {
 	app.get('/veiculo/:id', function (req, res) {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
-		veiculoDAO.listaId(function(erro, resultado){
+		veiculoDAO.listaId(req.params.id, function(erro, resultado){
 			if (erro) {
 				res.send(erro);
 			} 
