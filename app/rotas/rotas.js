@@ -55,7 +55,7 @@ module.exports = (app) => {
 			if (erro) {
 				res.send(erro);
 			} 
-			res.status(200).send(resultado);
+			res.status(200).send(JSON.stringify(resultado));
 		});
 		connection.end();
 	})
