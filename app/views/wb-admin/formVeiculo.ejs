@@ -2,10 +2,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
   <link rel="icon" href="/style/img/artcar-logo.ico">
 
   <title>Cadastro de Veículos</title>
@@ -41,7 +41,7 @@
       var path = veiculo.path; var marca = veiculo.marca; var modelo = veiculo.modelo; var anoModelo = veiculo.anoModelo;
       var anoFabricacao = veiculo.anoFabricacao; var versao = veiculo.versao; var cor = veiculo.cor;
       var combustivel = veiculo.combustivel; var cambio = veiculo.cambio; var portas = veiculo.portas;
-      var quilometragem = veiculo.quilometragem; var descricao = veiculo.descricao;
+      var quilometragem = veiculo.quilometragem; var renavan = veiculo.renavan; var descricao = veiculo.descricao;
       var fotos = [];
       for (var i = 0; i < 4; i++) {
        if (veiculo.fotos[i] != undefined) {
@@ -82,7 +82,6 @@
           <div class="form-group col-md-4">
             <label for="marcas">Marca</label>
             <select class="form-control" name="marca" id="marcas">
-              <option>Audi</option>
               <option>Chery</option>
               <option>Chevrolet</option>
               <option>Citroen</option>
@@ -166,6 +165,9 @@
         <div class="form-row">
           <div class="form-group col-md-6"><label>Quilometragem</label>
            <input class="form-control" id="quilometragem" value="<%=quilometragem%>" type="text" name="quilometragem" placeholder="200000 km" required>
+         </div>
+         <div class="form-group col-md-6"><label>Renavan</label>
+           <input class="form-control" id="renavan" value="<%=renavan%>" type="number" name="renavan" required>
          </div>
        </div>
 

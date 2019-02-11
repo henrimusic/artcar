@@ -12,14 +12,17 @@ VeiculoDAO.prototype.lista = function(callback){
 }
 
 VeiculoDAO.prototype.listaId = function(id, callback){
-	this._connection.query('select * from veiculo where idVeiculo =' + id , callback)
+	this._connection.query('select * from veiculo where idVeiculo = ' + id , callback)
 }
 
-VeiculoDAO.prototype.listaMarca = function(callback){
+VeiculoDAO.prototype.listaMarcas = function(callback){
 	const sql = 'SELECT DISTINCT a.marca FROM veiculo AS a;'; 
 	this._connection.query(sql, callback);
 }
 
+VeiculoDAO.prototype.listaMarcaId = function(id, callback){
+	this._connection.query("SELECT * FROM veiculo a LEFT JOIN (SELECT MAX(imagem.base64) AS base64, imagem.idImagem, imagem.idVeiculo FROM imagem GROUP BY imagem.idVeiculo) b ON b.idVeiculo = a.idVeiculo where marca = '"+ id + "'", callback);
+}
 
 VeiculoDAO.prototype.atualiza = function(id ,veiculo, callback) {
 	this._connection.query('update veiculo set ? where idVeiculo=' + id, veiculo, callback);

@@ -17,13 +17,11 @@
 </head>
 
 <body>
-	
 	<div class="container" style="text-align: center;margin-top: 5%;">
 		<h1 class="jumbotron-heading">Lista de Veiculos</h1>
 		<p class="lead text-muted">Selecione uma marca para listar os veículos</p>
 		<select class="form-control" name="marca" id="marcas" style="width: 40%;margin: auto;">
 			<option>Mostrar todos</option>
-			<option>Audi</option>
 			<option>Chery</option>
 			<option>Chevrolet</option>
 			<option>Citroen</option>
@@ -47,14 +45,21 @@
 			<option>Volvo</option>
 		</select>
 	</div>
+
 	<div class="album py-5">
+
 		<div class="container">
+
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+
 			<div class="row">
 
 				<%for (var i=0; i<lista.length;i++) {%>
-				<div class="col-md-4" id="<%=lista[i].marca%>">
+				<div class="col-md-4"  id="<%=lista[i].marca%>">
 					<div class="card mb-4 shadow-sm">
-						<img class="card-img-top" src="data:image/png;base64,<%=lista[i].base64%>" alt="Card image cap" style="max-height: 195px">
+						<img class="card-img-top" onload="loadImage()" src="data:image/png;base64,<%=lista[i].base64%>" alt="Card image cap" style="max-height: 195px">
 						<div class="card-body">
 							<p class="card-text"><%=lista[i].tipoVeiculo%> modelo <%=lista[i].modelo%></p>
 							<p class="card-text"><%=lista[i].versao%></p>
@@ -73,6 +78,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="text-center">
 		<div class="form-group">
 			<p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
