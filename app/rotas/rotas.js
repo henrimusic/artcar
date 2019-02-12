@@ -98,40 +98,40 @@ module.exports = (app) => {
 
 	app.post('/contato', function(req, res){
 		
-		let transporter = mailer.createTransport(
-	        {
-	            service: 'gmail',
-	            host: 'smtp.gmail.com',
-	            auth: {
-	                user: 'henrimus.96@gmail.com',
-	                pass: '474109has'
-	            }
-	        }
-	    );
+// 		let transporter = mailer.createTransport(
+// 	        {
+// 	            service: 'gmail',
+// 	            host: 'smtp.gmail.com',
+// 	            auth: {
+// 	                user: 'henrimus.96@gmail.com',
+// 	                pass: '474109has'
+// 	            }
+// 	        }
+// 	    );
 
-	    let message = {
-	        // Comma separated list of recipients
-	        to: 'artcar.vendas@gmail.com', // artcar.vendas@gmail.com
+// 	    let message = {
+// 	        // Comma separated list of recipients
+// 	        to: 'artcar.vendas@gmail.com', // artcar.vendas@gmail.com
 
-	        // Subject of the message
-	        subject: req.body.assunto,
+// 	        // Subject of the message
+// 	        subject: req.body.assunto,
 
-	        // plaintext body
-	        text: req.body.msg + ' | | ' + req.body.email,
-	    };
+// 	        // plaintext body
+// 	        text: req.body.msg + ' | | ' + req.body.email,
+// 	    };
 
 
-	  	transporter.sendMail(message, (error, info) => {
-	        if (error) {
-	            console.log('Error occurred');
-	            console.log(error.message);
-	            return process.exit(1);
-	        }
+// 	  	transporter.sendMail(message, (error, info) => {
+// 	        if (error) {
+// 	            console.log('Error occurred');
+// 	            console.log(error.message);
+// 	            return process.exit(1);
+// 	        }
 
-	        console.log('Message sent successfully!');
-	        // only needed when using pooled connections
-	        transporter.close();
-	    });
+// 	        console.log('Message sent successfully!');
+// 	        // only needed when using pooled connections
+// 	        transporter.close();
+// 	    });
 
 		res.status(200).send('ok');
 
