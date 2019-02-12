@@ -103,8 +103,7 @@ module.exports = (app) => {
 // 	            service: 'gmail',
 // 	            host: 'smtp.gmail.com',
 // 	            auth: {
-// 	                user: 'henrimus.96@gmail.com',
-// 	                pass: '474109has'
+// 	                user: 'henrimus.96@gmail.com'
 // 	            }
 // 	        }
 // 	    );
