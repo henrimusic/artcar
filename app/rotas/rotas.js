@@ -1,4 +1,5 @@
 const path = require("path");
+const mailer = require('nodemailer');
 
 module.exports = (app) => {
 	//chamadas das pages
@@ -93,5 +94,46 @@ module.exports = (app) => {
 			res.status(200).send(JSON.stringify(imagens));
 		});
 		connection.end();
-	})
+	});
+
+	app.post('/contato', function(req, res){
+		
+		let transporter = mailer.createTransport(
+	        {
+	            service: 'gmail',
+	            host: 'smtp.gmail.com',
+	            auth: {
+	                user: 'henrimus.96@gmail.com',
+	                pass: '474109has'
+	            }
+	        }
+	    );
+
+	    let message = {
+	        // Comma separated list of recipients
+	        to: 'artcar.vendas@gmail.com', // artcar.vendas@gmail.com
+
+	        // Subject of the message
+	        subject: req.body.assunto,
+
+	        // plaintext body
+	        text: req.body.msg + ' | | ' + req.body.email,
+	    };
+
+
+	  	transporter.sendMail(message, (error, info) => {
+	        if (error) {
+	            console.log('Error occurred');
+	            console.log(error.message);
+	            return process.exit(1);
+	        }
+
+	        console.log('Message sent successfully!');
+	        // only needed when using pooled connections
+	        transporter.close();
+	    });
+
+		res.status(200).send('ok');
+
+	});
 }
