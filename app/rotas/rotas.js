@@ -18,16 +18,17 @@ module.exports = (app) => {
 		var connection = app.infra.connectionFactory();
 		var veiculoDAO = new app.infra.VeiculoDAO(connection);
 
-		veiculoDAO.lista(function(erro, resultado){
+		veiculoDAO.listaHome(function(erro, resultado){
 			if (erro) {
 				res.send(erro)
 			}
 			var veiculos = [];
-			for (var i = 0; i < 8; i++) {
+			for (var i = 0; i < resultado.length; i++) {
 				if (resultado[i].base64 == null) {} else {resultado[i].base64 = Buffer.from(resultado[i].base64).toString('base64');}
 				veiculos[i] = resultado[i];
 			}
 			res.json(veiculos);
+			console.log(resultado.length);
 		});
 		connection.end();
 	});

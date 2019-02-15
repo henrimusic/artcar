@@ -36,7 +36,7 @@ module.exports = (app) => {
 		
 		if (req.body.idVeiculo) {                  
 			// atualiza um veiculo do banco
-			if (req.files != undefined) {
+			if (req.files.length >= 1) {
 				for (var i = 0; i < req.files.length; i++) {
 					imagemBase64 = Buffer.from(fs.readFileSync(req.files[i].path), 'base64');
 
@@ -62,10 +62,10 @@ module.exports = (app) => {
 			delete veiculo.idVeiculo;
 
 			veiculoDAO.atualiza(idVeiculo, veiculo, function(erro, resultado){
+				if (erro) {console.log(erro);}
 				connection.end();
 				res.redirect('/wb-admin/lista');
 			});
-			
 		} else {
 
 			// Cria um novo Veículo

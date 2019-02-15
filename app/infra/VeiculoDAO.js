@@ -11,6 +11,11 @@ VeiculoDAO.prototype.lista = function(callback){
 	this._connection.query(sql, callback);
 }
 
+VeiculoDAO.prototype.listaHome = function(callback){
+	const sql = 'SELECT * FROM veiculo a LEFT JOIN (SELECT MAX(imagem.base64) AS base64, imagem.idImagem, imagem.idVeiculo FROM imagem GROUP BY imagem.idVeiculo) b ON b.idVeiculo = a.idVeiculo LIMIT 8;'; 
+	this._connection.query(sql, callback);
+}
+
 VeiculoDAO.prototype.listaId = function(id, callback){
 	this._connection.query('select * from veiculo where idVeiculo = ' + id , callback)
 }
