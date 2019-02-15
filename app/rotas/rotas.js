@@ -98,40 +98,53 @@ module.exports = (app) => {
 	});
 
 	app.post('/contato', function(req, res){
-		
-// 		let transporter = mailer.createTransport(
-// 	        {
-// 	            service: 'gmail',
-// 	            host: 'smtp.gmail.com',
-// 	            auth: {
-// 	                user: 'henrimus.96@gmail.com'
-// 	            }
-// 	        }
-// 	    );
+		nodemailer.createTestAccount((err, account) => {
+			
+			if (err) {
+		        console.error('Failed to create a testing account');
+		        console.error(err);
+		        return process.exit(1);
+		    }
+		    console.log(account);
 
-// 	    let message = {
-// 	        // Comma separated list of recipients
-// 	        to: 'artcar.vendas@gmail.com', // artcar.vendas@gmail.com
+			let transporter = mailer.createTransport(
+		        {
+		            host: account.smtp.host,
+		            port: account.smtp.port,
+		            secure: account.smtp.secure,
+		            auth: {
+	                	user: account.user,
+            			pass: account.pass
+		            }
+		        }
+		    );
 
-// 	        // Subject of the message
-// 	        subject: req.body.assunto,
+		    let message = {
+		        // Comma separated list of recipients
+		        to: 'artcar.vendas@gmail.com', // artcar.vendas@gmail.com
 
-// 	        // plaintext body
-// 	        text: req.body.msg + ' | | ' + req.body.email,
-// 	    };
+		        // Subject of the message
+		        subject: req.body.assunto,
+
+		        // plaintext body
+		        text: req.body.msg + ' | | ' + req.body.email,
+		    };
 
 
-// 	  	transporter.sendMail(message, (error, info) => {
-// 	        if (error) {
-// 	            console.log('Error occurred');
-// 	            console.log(error.message);
-// 	            return process.exit(1);
-// 	        }
+		  	transporter.sendMail(message, (error, info) => {
+		        if (error) {
+		            console.log('Error occurred');
+		            console.log(error.message);
+		            return process.exit(1);
+		        }
 
-// 	        console.log('Message sent successfully!');
-// 	        // only needed when using pooled connections
-// 	        transporter.close();
-// 	    });
+		        console.log('Message sent successfully!');
+        		console.log(nodemailer.getTestMessageUrl(info));
+
+        		transporter.close();
+		    });
+
+	  	});
 
 		res.status(200).send('ok');
 
